@@ -37,7 +37,7 @@ print(f"Последний элемент кортежа: {my_dict['tuple'][-1]}
 my_dict['list'].append('six')
 my_dict['list'].pop(1)
 
-my_dict['dict']['i am a tuple'] = ('new tuple',)
+my_dict['dict'][('i am a tuple',)] = ('new tuple',)
 del my_dict['dict']['four']
 
 my_dict['set'].add('new element')
