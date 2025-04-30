@@ -7,6 +7,9 @@
 # Если пользователь угадывает цифру, программа пишет “Поздравляю! Вы угадали!” и завершается.
 # Т.е. программа не завершается пока пользователь не угадает цифру.
 
+import random
+import sys
+
 
 def greetings():
     print("Привет!\n"
@@ -42,7 +45,7 @@ def guess_the_number():
     greetings()
     main_menu()
 
-    exp_res = 88
+    exp_res = random.randint(-sys.maxsize - 1, sys.maxsize)
 
     while True:
         user_input = input("Введи целое число, воин: ")
