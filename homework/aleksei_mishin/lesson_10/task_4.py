@@ -24,6 +24,7 @@ PRICE_LIST = '''тетрадь 50р
 пенал 300р
 рюкзак 500р'''
 
+
 # method 1
 def dict_generator_1(text: str):
     price_ls = PRICE_LIST.split()
