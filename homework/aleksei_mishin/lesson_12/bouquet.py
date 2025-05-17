@@ -73,7 +73,7 @@ class Bouquet:
                 flowers[f"{obj.title} {obj.color}"] = f"{obj.get_time_remaining_in_hours()} ч."
 
         if flowers:
-            print(f"Результат поиска по сроку годности:")
+            print("Результат поиска по сроку годности:")
             self.print_dict(flowers)
 
         else:
