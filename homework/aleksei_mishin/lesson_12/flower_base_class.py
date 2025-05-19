@@ -3,9 +3,11 @@ from datetime import datetime
 
 class Flower:
 
-    def __init__(self, color, delivery_date, estimate_lifetime):
+    def __init__(self, color, delivery_date, title, price, estimate_lifetime):
         self.__color = color
         self.__delivery_date = delivery_date
+        self.__title = title
+        self.__price = price
         self.__estimate_lifetime = estimate_lifetime
 
     @property
@@ -19,6 +21,14 @@ class Flower:
     @property
     def estimate_lifetime(self):
         return self.__estimate_lifetime
+
+    @property
+    def title(self):
+        return self.__title
+
+    @property
+    def price(self):
+        return self.__price
 
     def get_current_lifetime_in_hours(self):
         delivery_date = datetime.strptime(self.__delivery_date, "%d.%m.%Y %H:%M")

@@ -16,18 +16,19 @@ from poppy import Poppy
 from tulip import Tulip
 from bouquet import Bouquet
 
-roses = Rose("Розовый", "16.05.2025 12:00", 96)
-chrysanthemums = Chrysanthemum("Оранжевый", "16.05.2025 12:00", 148, )
-chamomiles = Chamomile("Белый", "16.05.2025 12:00", 200)
-poppies = Poppy("Красный", "16.05.2025 12:00", 120)
-tulips = Tulip("Желтый", "16.05.2025 12:00", 180)
+roses = Rose("Розовый", "19.05.2025 12:00")
+chrysanthemums = Chrysanthemum("Оранжевый", "19.05.2025 12:00")
+chamomiles = Chamomile("Белый", "17.05.2025 12:00")
+poppies = Poppy("Красный", "16.05.2025 12:00")
+tulips = Tulip("Желтый", "16.05.2025 12:00")
 
 new_bouquet = Bouquet(roses, chrysanthemums, roses, tulips, chamomiles, poppies, tulips, chamomiles)
 
 new_bouquet.get_bouquet_time_of_fading()
 new_bouquet.get_bouquet_price()
-new_bouquet.do_sort_by_price()
-new_bouquet.do_sort_by_freshness()
-new_bouquet.do_search_by_title("Роза")
-new_bouquet.do_search_by_color("Желтый")
-new_bouquet.do_search_by_freshness(10)
+
+print(new_bouquet.do_sort_by_price())
+print(new_bouquet.do_sort_by_freshness())
+print(new_bouquet.do_search_by_title("Роза"))
+print(new_bouquet.do_search_by_color("Желтый"))
+print(new_bouquet.do_search_by_freshness(10))
