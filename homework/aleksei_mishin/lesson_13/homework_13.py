@@ -5,14 +5,20 @@
 # и для даты под номером один в коде должно быть реализовано то действие, которое написано в файле после этой даты.
 # Ну и так далее для каждой даты.
 
-from homework.aleksei_mishin.lesson_13.environments import EUGENE_OK_FILEPATH
+from homework.aleksei_mishin.lesson_13.environments import (
+    EUGENE_OK_FILEPATH,
+    DATETIME_ISO_FORMAT
+)
 from homework.aleksei_mishin.lesson_13.files import File
+from homework.aleksei_mishin.lesson_13.date_and_time import DateAndTime
 
 file = File(EUGENE_OK_FILEPATH)
+date_and_time = DateAndTime(DATETIME_ISO_FORMAT)
+
 str_dates_list = file.read_date_from_file()
-dates_list = file.do_datetime_from_string(str_dates_list)
+dates_list = date_and_time.do_datetime_from_string(str_dates_list)
 date1, date2, date3 = dates_list
 
-file.print_date_plus_seven_days(date1)
-file.print_date_weekday(date2)
-file.how_much_days_ago(date3)
+date_and_time.print_date_plus_seven_days(date1)
+date_and_time.print_date_weekday(date2)
+date_and_time.how_much_days_ago(date3)
