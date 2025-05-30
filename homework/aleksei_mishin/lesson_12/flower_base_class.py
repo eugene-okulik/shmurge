@@ -9,6 +9,7 @@ class Flower:
         self.__title = title
         self.__price = price
         self.__estimate_lifetime = estimate_lifetime
+        self.__time_remaining_in_hours = self.__estimate_lifetime - self.get_current_lifetime_in_hours()
 
     @property
     def color(self):
@@ -36,7 +37,6 @@ class Flower:
 
         return difference_in_hours
 
-    def get_time_remaining_in_hours(self):
-        time_remaining = self.__estimate_lifetime - self.get_current_lifetime_in_hours()
-
-        return time_remaining
+    @property
+    def time_remaining_in_hours(self):
+        return self.__time_remaining_in_hours
