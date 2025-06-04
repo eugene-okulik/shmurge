@@ -64,7 +64,7 @@ class SqlRequests(MySqlConnection):
 
     def get_info_about_user(self, student_id: (str, int)):
         query = f'''
-            SELECT 
+            SELECT
             name,
             second_name,
             GROUP_CONCAT(b.title) AS book_titles,
@@ -79,7 +79,7 @@ class SqlRequests(MySqlConnection):
             JOIN lessons l ON m.lesson_id = l.id
             JOIN subjets sub ON l.subject_id = sub.id
             WHERE s.id = {student_id}
-            GROUP BY 
+            GROUP BY
             s.id, g.title, m.value, l.title, sub.title
         '''
         self.cursor.execute(query)
