@@ -19,7 +19,7 @@ class SqlRequests(MySqlConnection):
     def insert_into_table(self,
                           table_name: str,
                           columns: (list, tuple),
-                          values: (list, tuple)) -> list:
+                          values: (list, tuple)) -> int:
         params_quan = 0
 
         for col in values:
@@ -31,7 +31,7 @@ class SqlRequests(MySqlConnection):
         insert_query = f"INSERT INTO {table_name} ({columns_str}) VALUES ({format_str})"
         self.cursor.executemany(insert_query, values)
 
-        return [self.get_last_id() + i for i in range(len(values))]
+        return self.get_last_id()
 
     def select_from_table(self,
                           columns: str,

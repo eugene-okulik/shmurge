@@ -19,32 +19,26 @@ with SqlRequests(
         port=ST4_CONFIG["port"],
         database=ST4_CONFIG['database']
 ) as sql_requests:
-    student_ids_ls = sql_requests.insert_into_table(table_name='students',
-                                                    columns=('name', 'second_name'),
-                                                    values=[
-                                                        ('Алексей', 'Мишин')
-                                                    ])
+    student_id = sql_requests.insert_into_table(table_name='students',
+                                                columns=('name', 'second_name'),
+                                                values=[
+                                                    ('Алексей', 'Мишин')
+                                                ])
 
-    student_id = student_ids_ls[0] if len(student_ids_ls) == 1 else None
+    sql_requests.insert_into_table(table_name='books',
+                                   columns=('title', 'taken_by_student_id'),
+                                   values=[
+                                       ('Математический анализ', student_id),
+                                       ('Математическая логика', student_id),
+                                       ('Квантовая физика', student_id),
+                                       ('Ядерная физика', student_id)
+                                   ])
 
-    book_ids_ls = sql_requests.insert_into_table(table_name='books',
-                                                 columns=('title', 'taken_by_student_id'),
-                                                 values=[
-                                                     ('Математический анализ', student_id),
-                                                     ('Математическая логика', student_id),
-                                                     ('Квантовая физика', student_id),
-                                                     ('Ядерная физика', student_id)
-                                                 ])
-
-    mathan_book_id, math_logic_book_id, quantum_phys_book_id, nuklear_phys_book_id = book_ids_ls
-
-    group_ids_ls = sql_requests.insert_into_table(table_name='`groups`',
-                                                  columns=('title', 'start_date', 'end_date'),
-                                                  values=[
-                                                      ('Физмат', '10.2025', '06.2029')
-                                                  ])
-
-    group_id = group_ids_ls[0] if len(group_ids_ls) == 1 else None
+    group_id = sql_requests.insert_into_table(table_name='`groups`',
+                                              columns=('title', 'start_date', 'end_date'),
+                                              values=[
+                                                  ('Физмат', '10.2025', '06.2029')
+                                              ])
 
     sql_requests.update_data_in_table(table_name='students',
                                       set_column='group_id',
@@ -53,33 +47,49 @@ with SqlRequests(
                                       where_value=student_id
                                       )
 
-    subject_ids_ls = sql_requests.insert_into_table(table_name='subjets',
-                                                    columns=('title',),
-                                                    values=[
-                                                        ('Математика (Физмат)',),
-                                                        ('Физика (Физмат)',)
-                                                    ])
+    math_subj_id = sql_requests.insert_into_table(table_name='subjets',
+                                                  columns=('title',),
+                                                  values=[
+                                                      ('Математика (Физмат)',)
+                                                  ])
 
-    math_subj_id, physics_subj_id = subject_ids_ls
+    physics_subj_id = sql_requests.insert_into_table(table_name='subjets',
+                                                     columns=('title',),
+                                                     values=[
+                                                         ('Физика (Физмат)',)
+                                                     ])
 
-    lesson_ids_ls = sql_requests.insert_into_table(table_name='lessons',
-                                                   columns=('title', 'subject_id'),
-                                                   values=[
-                                                       ('Матанализ', math_subj_id),
-                                                       ('Теория вероятности', math_subj_id),
-                                                       ('Квантовая физика', physics_subj_id),
-                                                       ('Ядерная физика', physics_subj_id)
-                                                   ])
+    mathan_lesson_id = sql_requests.insert_into_table(table_name='lessons',
+                                                      columns=('title', 'subject_id'),
+                                                      values=[
+                                                          ('Матанализ', math_subj_id)
+                                                      ])
 
-    mathan_lesson_id, prob_theory_lesson_id, quantum_phys_lesson_id, nuklear_phys_lesson_id = lesson_ids_ls
+    prob_theory_lesson_id = sql_requests.insert_into_table(table_name='lessons',
+                                                           columns=('title', 'subject_id'),
+                                                           values=[
+                                                               ('Теория вероятности', math_subj_id)
+                                                           ])
+
+    quantum_phys_lesson_id = sql_requests.insert_into_table(table_name='lessons',
+                                                            columns=('title', 'subject_id'),
+                                                            values=[
+                                                                ('Квантовая физика', physics_subj_id)
+                                                            ])
+
+    nuklear_phys_lesson_id = sql_requests.insert_into_table(table_name='lessons',
+                                                            columns=('title', 'subject_id'),
+                                                            values=[
+                                                                ('Ядерная физика', physics_subj_id)
+                                                            ])
 
     sql_requests.insert_into_table(table_name='marks',
                                    columns=('value', 'lesson_id', 'student_id'),
                                    values=[
-                                       ('7', mathan_lesson_id, student_ids_ls[0]),
-                                       ('6', prob_theory_lesson_id, student_ids_ls[0]),
-                                       ('8', quantum_phys_lesson_id, student_ids_ls[0]),
-                                       ('7', nuklear_phys_lesson_id, student_ids_ls[0])
+                                       ('7', mathan_lesson_id, student_id),
+                                       ('6', prob_theory_lesson_id, student_id),
+                                       ('8', quantum_phys_lesson_id, student_id),
+                                       ('7', nuklear_phys_lesson_id, student_id)
                                    ])
 
     sql_requests.commit_changes()
