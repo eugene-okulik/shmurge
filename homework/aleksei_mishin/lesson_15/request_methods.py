@@ -13,7 +13,7 @@ class SqlRequests(MySqlConnection):
                               query: str,
                               data: (list, tuple)) -> (list, int):
 
-        if type(data) == list and len(data) > 1:
+        if type(data) is list and len(data) > 1:
             ids_list = []
             for v in data:
                 self.cursor.execute(query, v)
