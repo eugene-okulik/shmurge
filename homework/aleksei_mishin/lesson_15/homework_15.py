@@ -10,7 +10,12 @@
 # При получении данных, распечатывайте эти данные.
 
 from homework.aleksei_mishin.lesson_15.database_config import ST4_CONFIG
-from homework.aleksei_mishin.lesson_15.sql_requests import SqlRequests
+from homework.aleksei_mishin.lesson_15.request_methods import SqlRequests
+from homework.aleksei_mishin.lesson_15.sql_requests import (
+    ADD_STUDENT, UPDATE_STUDENT,
+    ADD_BOOK, ADD_GROUP, ADD_SUBJECT,
+    ADD_LESSON, ADD_MARK, GET_STUDENT_MARKS,
+    GET_STUDENT_BOOKS, GET_INFO_ABOUT_STUDENT)
 
 with SqlRequests(
         user=ST4_CONFIG["username"],
@@ -19,92 +24,46 @@ with SqlRequests(
         port=ST4_CONFIG["port"],
         database=ST4_CONFIG['database']
 ) as sql_requests:
-    student_id = sql_requests.insert_into_table(table_name='students',
-                                                columns=('name', 'second_name'),
-                                                values=[
-                                                    ('Алексей', 'Мишин')
-                                                ])
+    student_id = sql_requests.insert_or_update_data(query=ADD_STUDENT,
+                                                    data=('Жорик', 'Вартанов'))
+    sql_requests.insert_or_update_data(query=ADD_BOOK,
+                                       data=[
+                                           ('Математический анализ', student_id),
+                                           ('Математическая логига', student_id),
+                                           ('Квантовая физика', student_id),
+                                           ('Ядерная физика', student_id)
+                                       ])
+    group_id = sql_requests.insert_or_update_data(query=ADD_GROUP,
+                                                  data=('Физмат', '10.2025', '06.2029'))
+    sql_requests.insert_or_update_data(query=UPDATE_STUDENT,
+                                       data=(group_id, student_id))
+    math_subj_id, physics_subj_id = sql_requests.insert_or_update_data(query=ADD_SUBJECT,
+                                                                       data=[
+                                                                           ('Математика (Физмат)',),
+                                                                           ('Физика (Физмат)',)
+                                                                       ])
+    lesson_ids_list = sql_requests.insert_or_update_data(query=ADD_LESSON,
+                                                         data=[
+                                                             ('Матанализ', math_subj_id),
+                                                             ('Теория вероятности', math_subj_id),
+                                                             ('Квантовая физика', physics_subj_id),
+                                                             ('Ядерная физика', physics_subj_id)
+                                                         ])
 
-    sql_requests.insert_into_table(table_name='books',
-                                   columns=('title', 'taken_by_student_id'),
-                                   values=[
-                                       ('Математический анализ', student_id),
-                                       ('Математическая логика', student_id),
-                                       ('Квантовая физика', student_id),
-                                       ('Ядерная физика', student_id)
-                                   ])
+    mathan_lesson_id, prob_theory_lesson_id, quantum_phys_lesson_id, nuklear_phys_lesson_id = lesson_ids_list
 
-    group_id = sql_requests.insert_into_table(table_name='`groups`',
-                                              columns=('title', 'start_date', 'end_date'),
-                                              values=[
-                                                  ('Физмат', '10.2025', '06.2029')
-                                              ])
-
-    sql_requests.update_data_in_table(table_name='students',
-                                      set_column='group_id',
-                                      set_value=group_id,
-                                      where_column='id',
-                                      where_value=student_id
-                                      )
-
-    math_subj_id = sql_requests.insert_into_table(table_name='subjets',
-                                                  columns=('title',),
-                                                  values=[
-                                                      ('Математика (Физмат)',)
-                                                  ])
-
-    physics_subj_id = sql_requests.insert_into_table(table_name='subjets',
-                                                     columns=('title',),
-                                                     values=[
-                                                         ('Физика (Физмат)',)
-                                                     ])
-
-    mathan_lesson_id = sql_requests.insert_into_table(table_name='lessons',
-                                                      columns=('title', 'subject_id'),
-                                                      values=[
-                                                          ('Матанализ', math_subj_id)
-                                                      ])
-
-    prob_theory_lesson_id = sql_requests.insert_into_table(table_name='lessons',
-                                                           columns=('title', 'subject_id'),
-                                                           values=[
-                                                               ('Теория вероятности', math_subj_id)
-                                                           ])
-
-    quantum_phys_lesson_id = sql_requests.insert_into_table(table_name='lessons',
-                                                            columns=('title', 'subject_id'),
-                                                            values=[
-                                                                ('Квантовая физика', physics_subj_id)
-                                                            ])
-
-    nuklear_phys_lesson_id = sql_requests.insert_into_table(table_name='lessons',
-                                                            columns=('title', 'subject_id'),
-                                                            values=[
-                                                                ('Ядерная физика', physics_subj_id)
-                                                            ])
-
-    sql_requests.insert_into_table(table_name='marks',
-                                   columns=('value', 'lesson_id', 'student_id'),
-                                   values=[
-                                       ('7', mathan_lesson_id, student_id),
-                                       ('6', prob_theory_lesson_id, student_id),
-                                       ('8', quantum_phys_lesson_id, student_id),
-                                       ('7', nuklear_phys_lesson_id, student_id)
-                                   ])
+    sql_requests.insert_or_update_data(query=ADD_MARK,
+                                       data=[
+                                           ('7', mathan_lesson_id, student_id),
+                                           ('6', prob_theory_lesson_id, student_id),
+                                           ('8', quantum_phys_lesson_id, student_id),
+                                           ('7', nuklear_phys_lesson_id, student_id)
+                                       ])
+    sql_requests.get_data(query=GET_STUDENT_MARKS,
+                          data=(student_id,))
+    sql_requests.get_data(query=GET_STUDENT_BOOKS,
+                          data=(student_id,))
+    sql_requests.get_data(query=GET_INFO_ABOUT_STUDENT,
+                          data=(student_id,))
 
     sql_requests.commit_changes()
-
-    sql_requests.select_from_table(columns='value',
-                                   table_name='marks',
-                                   where_columns=('student_id',),
-                                   where_values=(student_id,)
-                                   )
-
-    sql_requests.select_from_table(columns='title',
-                                   table_name='books',
-                                   where_columns=('taken_by_student_id',),
-                                   where_values=(student_id,)
-                                   )
-
-    # Вот с этим методом я плотно припух, так и не сообразил, как сделать его хоть немного универсальным
-    sql_requests.get_info_about_user(student_id=student_id)
