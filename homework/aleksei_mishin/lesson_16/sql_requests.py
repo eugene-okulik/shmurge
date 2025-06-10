@@ -12,8 +12,8 @@ SEARCH_STUDENT = '''SELECT
                     JOIN marks m ON s.id = m.student_id
                     JOIN lessons l ON m.lesson_id = l.id
                     JOIN subjets sub ON l.subject_id = sub.id
-                    WHERE (s.name, s.second_name, g.title, b.title, sub.title, l.title, m.value) 
-                    = 
+                    WHERE (s.name, s.second_name, g.title, b.title, sub.title, l.title, m.value)
+                    =
                     (%s, %s, %s, %s, %s, %s, %s)
                     GROUP BY
                     s.id, g.title, m.value, l.title, sub.title'''
