@@ -13,7 +13,7 @@ class Logs:
     def check_user_input():
         while True:
             user_input = input('Enter your search request: ')
-            if not '--text' in user_input:
+            if '--text' not in user_input:
                 print('Invalid request!')
                 continue
             dirpath, keyword = user_input.replace(' ', '').split('--text')
