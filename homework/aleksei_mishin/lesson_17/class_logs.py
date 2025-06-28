@@ -1,4 +1,5 @@
 import os
+from config import FILEPATH, KEYWORD
 
 
 class Logs:
@@ -11,16 +12,11 @@ class Logs:
 
     @staticmethod
     def check_user_input():
-        while True:
-            user_input = input('Enter your search request: ')
-            if '--text' not in user_input:
-                print('Invalid request!')
-                continue
-            dirpath, keyword = user_input.replace(' ', '').split('--text')
-            if os.path.isdir(dirpath):
-                return dirpath, keyword
-            else:
-                print('Directory not found!')
+        if not os.path.isdir(FILEPATH):
+            print('Incorrect filepath!')
+            print(FILEPATH)
+            exit()
+        return FILEPATH, KEYWORD
 
     def parse_error_string(self, file_name: str, line_num: int, data_list: list):
         ind = data_list.index(self.keyword.upper())
