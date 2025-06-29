@@ -24,7 +24,7 @@ class Logs:
 
     def search_logs_from_file(self):
         for file_name in self.files_list:
-            filepath = self.dirpath + file_name
+            filepath = os.path.join(self.dirpath, file_name)
             line_cnt = 1
 
             with open(filepath) as file:
