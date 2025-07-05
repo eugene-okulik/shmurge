@@ -8,11 +8,6 @@ def check_data_is_equal(exp, act):
                         f'Act: {act}')
 
 
-def check_data_in_array(data, array):
-    assert data in array, (f'{data} not in array!\n'
-                           f'{array}')
-
-
 def is_data_in_array(data, array):
     return True if data in array else False
 
