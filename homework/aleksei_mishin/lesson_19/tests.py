@@ -1,5 +1,5 @@
 import pytest
-from payloads import OBJ_1, OBJ_2, OBJ_3, OBJ_3_1, OBJ_3_2, OBJ_4
+from payloads import OBJ_1, OBJ_2, OBJ_3, OBJ_3_1, OBJ_3_2, OBJ_4, RANDOM_OBJ
 from api_request import post_object, put_object, get_all_objects_list, patch_object, delete_object
 from assertions import object_should_be_in_list, object_should_not_be_in_list
 from fixtures import (
@@ -19,8 +19,9 @@ def test_create_object(get_start_and_stop_testing, obj):
 
 
 def test_update_object(create_and_delete_object):
+    update_resp = put_object(create_and_delete_object.id, RANDOM_OBJ)
     obj_list = get_all_objects_list()
-    object_should_be_in_list(obj_list.data, create_and_delete_object)
+    object_should_be_in_list(obj_list.data, update_resp)
 
 
 @pytest.mark.medium
