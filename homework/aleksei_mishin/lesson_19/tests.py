@@ -15,12 +15,14 @@ from fixtures import (
 def test_create_object(get_start_and_stop_testing, obj):
     response = post_object(obj)
     obj_list = get_all_objects_list()
+
     object_should_be_in_list(obj_list.data, response)
 
 
 def test_update_object(create_and_delete_object):
     update_resp = put_object(create_and_delete_object.id, RANDOM_OBJ)
     obj_list = get_all_objects_list()
+
     object_should_be_in_list(obj_list.data, update_resp)
 
 
