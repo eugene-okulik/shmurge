@@ -10,7 +10,7 @@ def get_start_and_stop_testing():
     print('\nTesting completed!')
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture()
 def print_before_after():
     print('\nbefore test')
     yield
