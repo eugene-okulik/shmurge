@@ -1,6 +1,5 @@
 import pytest
 import allure
-from conftest import update_object, remove_object
 from payloads.object_payloads import (
     OBJ_1, OBJ_2, OBJ_3, OBJ_4, OBJ_4_WITH_NEW_NAME,
     OBJ_ONLY_NAME, OBJ_ONLY_DATA, OBJ_4_WITH_NEW_DATA
