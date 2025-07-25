@@ -12,7 +12,7 @@ class DeleteObject(BaseEndpoint):
 
             resp = requests.delete(
                 url=url,
-                headers=headers,
+                headers=headers
             )
 
             self.base_assertions.check_status_code_is_200(resp)

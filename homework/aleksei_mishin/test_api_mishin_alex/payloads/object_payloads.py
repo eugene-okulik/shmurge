@@ -1,3 +1,5 @@
+from faker.generator import random
+
 from endpoints.models.object_model import RequestCreateObjectModel, RequestUpdateObjectModel
 from faker import Faker
 
@@ -41,7 +43,23 @@ OBJ_4_WITH_NEW_DATA = RequestCreateObjectModel(
     data=OBJ_ONLY_DATA.data
 )
 
-RANDOM_OBJ = RequestCreateObjectModel(
-    name=fake.text(max_nb_chars=10),
-    data={'color': fake.color(), 'size': fake.text(max_nb_chars=7)}
-)
+
+def create_random_obj():
+    return RequestCreateObjectModel(
+        name=fake.text(max_nb_chars=12),
+        data={'color': fake.color(), 'size': fake.text(max_nb_chars=8)}
+    )
+
+
+def update_random_part_of_obj():
+    num = random.randint(1, 1000000)
+    if num % 2 == 0:
+        model = RequestUpdateObjectModel(
+            name=fake.name()
+        )
+    else:
+        model = RequestUpdateObjectModel(
+            data={'color': fake.color(), 'size': fake.text(max_nb_chars=8)}
+        )
+
+    return model
