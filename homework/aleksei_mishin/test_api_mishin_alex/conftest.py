@@ -2,7 +2,7 @@ import pytest
 from endpoints.create_object import CreateObject
 from endpoints.update_object import UpdateObject
 from endpoints.delete_object import DeleteObject
-from payloads.object_payloads import RANDOM_OBJ, OBJ_4
+from payloads.object_payloads import OBJ_4, create_random_obj
 
 
 @pytest.fixture()
@@ -22,14 +22,14 @@ def remove_object():
 
 @pytest.fixture()
 def preconditions_create_delete_obj():
-    req = CreateObject().post_request(RANDOM_OBJ)
+    req = CreateObject().post_request(create_random_obj())
     yield req
     DeleteObject().delete_request(req.id)
 
 
 @pytest.fixture()
 def preconditions_create_obj():
-    return CreateObject().post_request(RANDOM_OBJ)
+    return CreateObject().post_request(create_random_obj())
 
 
 @pytest.fixture()
