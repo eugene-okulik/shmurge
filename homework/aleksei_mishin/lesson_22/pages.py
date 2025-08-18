@@ -5,8 +5,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 from elements import Button, Input, Selector, Table
 from locators import QaPractLocators, ToolsQaLocators, HerokuAppLocators
-from test_data import UserTestData, OtherTestData
-from time import sleep
+from test_data import UserTestData
 
 
 class BasePage:
