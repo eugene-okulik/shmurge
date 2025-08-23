@@ -23,3 +23,4 @@ class MagentoPageLocators:
     GOODS = (By.XPATH, '//*[@class="product name product-item-name"]')
     ADD_TO_COMPARE_BUTTONS = (By.XPATH, '//*[@class="action tocompare"]')
     COMPARE_ITEM_QUANTITY = (By.XPATH, '//*[@class="action compare"]/child::span')
+    PRODUCT_TITLE_IN_COMPARE_SECTION = (By.XPATH, '//*[@class="product-item-name"]')

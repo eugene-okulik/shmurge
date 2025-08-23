@@ -80,9 +80,10 @@ class BaseElement:
         action.move_to_element(element)
         action.perform()
 
-    def get_text_of_element(self):
+    def get_text_of_element(self, element=None):
+        element = element if element else self.get_element()
 
-        return self.get_element().text
+        return element.text
 
 
 class Button(BaseElement):

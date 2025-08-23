@@ -128,23 +128,26 @@ class MagentoPage(BasePage):
             'Кнопка: Сравнить',
             *MagentoPageLocators.ADD_TO_COMPARE_BUTTONS
         )
-        self.compare_item_quantity = Button(
+        self.prod_title_in_compare_section = Button(
             self.browser,
-            'Количество товаров для сравнения',
-            *MagentoPageLocators.COMPARE_ITEM_QUANTITY
+            'Наименование товара в секции сравнения',
+            *MagentoPageLocators.PRODUCT_TITLE_IN_COMPARE_SECTION
         )
 
     def add_product_to_compare(self, index=0):
         product = self.bags.get_elements()[index]
+        product_title = product.text
         add_to_compare = self.add_to_compare_buttons.get_elements()[index]
         self.bags.scroll_to_element(product)
         self.bags.move_to_element(product)
         self.add_to_compare_buttons.move_to_element(add_to_compare)
         self.add_to_compare_buttons.click(add_to_compare)
 
-    def should_be_correct_quantity_items_to_compare(self, exp_res: int):
-        act_res = self.compare_item_quantity.get_text_of_element().split()
-        act_res = int(act_res[0])
-        assert act_res == exp_res, (f'Некорректное количество товаров для сравнения!\n'
+        return product_title
+
+    def should_be_correct_prod_title_in_compare_section(self, exp_res):
+        self.prod_title_in_compare_section.scroll_to_element()
+        act_res = self.prod_title_in_compare_section.get_text_of_element()
+        assert act_res == exp_res, (f'Некорректное наименование товара в секции сравнения!\n'
                                     f'ОР: {exp_res}\n'
                                     f'ФР: {act_res}')

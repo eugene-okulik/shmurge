@@ -36,6 +36,6 @@ def test_first(browser):
 def test_second(browser):
     page = MagentoPage(browser, MAGENTO_LINK)
     page.open()
-    page.add_product_to_compare()
+    prod_title = page.add_product_to_compare()
 
-    page.should_be_correct_quantity_items_to_compare(exp_res=1)
+    page.should_be_correct_prod_title_in_compare_section(prod_title)
