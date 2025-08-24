@@ -3,7 +3,7 @@ import pytest
 import random
 from selenium import webdriver
 from pages import InputsPage, StudentRegistrationPage, HerokuAppPage
-from test_data import OtherTestData
+from data_test import OtherTestData
 
 QA_PRACTICE_INPUTS_LINK = 'https://www.qa-practice.com/elements/input/simple'
 QA_PRACTICE_SELECTS_LINK = 'https://www.qa-practice.com/elements/select/single_select'
@@ -16,7 +16,8 @@ def browser():
     driver = webdriver.Chrome()
     driver.maximize_window()
 
-    return driver
+    yield driver
+    driver.close()
 
 
 @allure.title('Тест: заполнения инпута')
