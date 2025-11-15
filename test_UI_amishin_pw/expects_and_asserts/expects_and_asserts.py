@@ -80,7 +80,7 @@ class ExpectsAndAsserts:
         try:
             expect(
                 actual=self.page,
-                message=f'Некорректный url на странице!'
+                message='Некорректный url на странице!'
             ).to_have_url(url_or_reg_exp=exp_url, timeout=self.timeout)
         except AssertionError:
             self.utils.attach_screenshot(screenshot_name='Page url')
