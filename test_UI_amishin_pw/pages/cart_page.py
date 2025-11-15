@@ -127,7 +127,7 @@ class CartPage(HeaderPage):
                     remove_buttons[i].click()
 
     def remove_random_product_from_cart(self):
-        with allure.step(f'Удалить рандомный товар из корзины'):
+        with allure.step('Удалить рандомный товар из корзины'):
             titles = self.product_title.get_inner_text_list()
             remove_buttons = self.delete_product_button.find_elements()
             prod_title = random.choice(titles)
