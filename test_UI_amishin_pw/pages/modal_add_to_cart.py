@@ -67,7 +67,6 @@ class ModalAddToCart(BasePage):
 
     def check_product_title(self, exp, full_match=False):
         with allure.step(f'Проверить {self.product_title_on_modal.name}'):
-            title_in_modal = self.product_title_on_modal.get_text_of_element()
             if full_match:
                 self.expect.elt_to_have_text(
                     element=self.product_title_on_modal.find_element(),
